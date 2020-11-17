@@ -30,11 +30,7 @@ const start = async () => {
   app.get('/experience', async (req, res) => {
     try {
       const expList = await controller.getExperienceList()
-      res.send(
-        {
-          success: true,
-          expList
-        });
+      res.send(expList);
     } catch (error) {
       res.status(500).send('Server Error')
     }
@@ -58,6 +54,7 @@ const start = async () => {
   app.get('/about', async (req, res) => {
     try {
       const about = await controller.getAboutDesc()
+      console.log(about)
       res.send(
         {
           success: true,
@@ -163,25 +160,26 @@ const start = async () => {
 
   //Create New
   //Skill
-  app.post('/skills', async (req, res) => {
+  app.post('/skills/insert', async (req, res) => {
     try {
-      const id = req.params.id
-      const skill = await controller.createSkill(id)
+      const { name, label, description } = req.query
+      const skill = await controller.createSkill(name, label, description)
       res.send(
         {
           success: true,
           skill
         });
     } catch (error) {
+      console.log(error)
       res.status(500).send('Server Error')
     }
   })
 
   //Experience
-  app.post('/experience', async (req, res) => {
+  app.post('/experience/insert', async (req, res) => {
     try {
-      const id = req.params.id
-      const experience = await controller.createExperience(id)
+      const { company_name, from_date, to_date, description } = req.query
+      const experience = await controller.createExperience(company_name, from_date, to_date, description)
       res.send(
         {
           success: true,
@@ -193,10 +191,10 @@ const start = async () => {
   })
 
   //Project
-  app.post('/projects', async (req, res) => {
+  app.post('/projects/insert', async (req, res) => {
     try {
-      const id = req.params.id
-      const project = await controller.createProject(id)
+      const { project_name, project_github_link, project_demo_link, project_image, description } = req.query
+      const project = await controller.createProject(project_name, project_github_link, project_demo_link, project_image, description)
       res.send(
         {
           success: true,
@@ -208,10 +206,10 @@ const start = async () => {
   })
 
   //About
-  app.post('/about', async (req, res) => {
+  app.post('/about/insert', async (req, res) => {
     try {
-      const id = req.params.id
-      const about = await controller.createAbout(id)
+      const { description } = req.query
+      const about = await controller.createAbout(description)
       res.send(
         {
           success: true,
@@ -223,10 +221,10 @@ const start = async () => {
   })
 
   //Contact Link
-  app.post('/contact_links', async (req, res) => {
+  app.post('/contact_links/insert', async (req, res) => {
     try {
-      const id = req.params.id
-      const link = await controller.createLink(id)
+      const { facebook_link, youtube_link, twitter_link, email } = req.query
+      const link = await controller.createLink(facebook_link, youtube_link, twitter_link, email)
       res.send(
         {
           success: true,
@@ -237,89 +235,173 @@ const start = async () => {
     }
   })
 
+  /*------------------------------------------------------------------*/
+  /*------------------------------------------------------------------*/
+
+
+  //Delete
+  //Skill
+  app.delete('/skills/delete/:id', async (req, res) => {
+    try {
+      const { id } = req.params
+      const skill = await controller.deleteSkill(id)
+      res.send(
+        {
+          success: true,
+          skill
+        });
+    } catch (error) {
+      console.log(error)
+      res.status(500).send(error)
+    }
+  })
+
+  //Experience
+  app.delete('/experience/delete/:id', async (req, res) => {
+    try {
+      const { id } = req.params
+      const experience = await controller.deleteExperience(id)
+      res.send(
+        {
+          success: true,
+          experience
+        });
+    } catch (error) {
+      res.status(500).send('Server Error')
+    }
+  })
+
+  //Project
+  app.delete('/projects/delete/:id', async (req, res) => {
+    try {
+      const { id } = req.params
+      const project = await controller.deleteProject(id)
+      res.send(
+        {
+          success: true,
+          project
+        });
+    } catch (error) {
+      res.status(500).send('Server Error')
+    }
+  })
+
+  //About
+  app.delete('/about/delete/:id', async (req, res) => {
+    try {
+      const { id } = req.params
+      console.log(id)
+      const about = await controller.deleteAbout(id)
+      console.log(about)
+      res.send(
+        {
+          success: true,
+          about
+        });
+    } catch (error) {
+      console.log(error)
+      res.status(500).send('Server Error')
+    }
+  })
+
+  //Contact Link
+  app.delete('/contact_links/delete/:id', async (req, res) => {
+    try {
+      const { id } = req.params
+      const link = await controller.deleteLink(id)
+      res.send(
+        {
+          success: true,
+          link
+        });
+    } catch (error) {
+      res.status(500).send('Server Error')
+    }
+  })
+
+
+
+  //Update
+  //Skill
+  app.put('/skills/update/:id', async (req, res) => {
+    try {
+      const { id } = req.params
+      const skill = await controller.updateSkill(id)
+      res.send(
+        {
+          success: true,
+          skill
+        });
+    } catch (error) {
+      console.log(error)
+      res.status(500).send(error)
+    }
+  })
+
+  //Experience
+  app.put('/experience/update/:id', async (req, res) => {
+    try {
+      const { id } = req.params
+      const experience = await controller.updateExperience(id)
+      res.send(
+        {
+          success: true,
+          experience
+        });
+    } catch (error) {
+      res.status(500).send('Server Error')
+    }
+  })
+
+  //Project
+  app.put('/projects/update/:id', async (req, res) => {
+    try {
+      const { id } = req.params
+      const project = await controller.updateProject(id)
+      res.send(
+        {
+          success: true,
+          project
+        });
+    } catch (error) {
+      res.status(500).send('Server Error')
+    }
+  })
+
+  //About
+  app.put('/about/update/:id', async (req, res) => {
+    try {
+      const { id } = req.params
+      console.log(id)
+      const about = await controller.updateAbout(id)
+      console.log(about)
+      res.send(
+        {
+          success: true,
+          about
+        });
+    } catch (error) {
+      console.log(error)
+      res.status(500).send('Server Error')
+    }
+  })
+
+  //Contact Link
+  app.put('/contact_links/update/:id', async (req, res) => {
+    try {
+      const { id } = req.params
+      const link = await controller.updateLink(id)
+      res.send(
+        {
+          success: true,
+          link
+        });
+    } catch (error) {
+      res.status(500).send('Server Error')
+    }
+  })
   app.listen(port, () => console.log('server is listening on port ' + port))
 }
-
-
-/*------------------------------------------------------------------*/
-/*------------------------------------------------------------------*/
-
-
-//Delete
-//Skill
-app.delete('/skills/:id', async (req, res) => {
-  try {
-    const id = req.params.id
-    const skill = await controller.deleteSkill(id)
-    res.send(
-      {
-        success: true,
-        skill
-      });
-  } catch (error) {
-    res.status(500).send('Server Error')
-  }
-})
-
-//Experience
-app.delete('/experience/:id', async (req, res) => {
-  try {
-    const id = req.params.id
-    const experience = await controller.deleteExperience(id)
-    res.send(
-      {
-        success: true,
-        experience
-      });
-  } catch (error) {
-    res.status(500).send('Server Error')
-  }
-})
-
-//Project
-app.delete('/projects/:id', async (req, res) => {
-  try {
-    const id = req.params.id
-    const project = await controller.deleteProject(id)
-    res.send(
-      {
-        success: true,
-        project
-      });
-  } catch (error) {
-    res.status(500).send('Server Error')
-  }
-})
-
-//About
-app.delete('/about/:id', async (req, res) => {
-  try {
-    const id = req.params.id
-    const about = await controller.deleteAbout(id)
-    res.send(
-      {
-        success: true,
-        about
-      });
-  } catch (error) {
-    res.status(500).send('Server Error')
-  }
-})
-
-//Contact Link
-app.delete('/contact_links/:id', async (req, res) => {
-  try {
-    const id = req.params.id
-    const link = await controller.deleteLink(id)
-    res.send(
-      {
-        success: true,
-        link
-      });
-  } catch (error) {
-    res.status(500).send('Server Error')
-  }
-})
 
 start();
 

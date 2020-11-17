@@ -30,7 +30,7 @@ const initializeDatabase = async () => {
 
     //About
     const getAboutDesc = async () => {
-      const rows = await db.all("SELECT id, description FROM about")
+      const rows = await db.all("SELECT * FROM about")
       return rows
     }
 
@@ -83,36 +83,31 @@ const initializeDatabase = async () => {
 
     //Create New
     //Skill
-    const createSkill = async (props) => {
-      const { name, label, description } = props
-      const rows = await db.run(`INSERT INTO skills (name, label, description) VALUES (${name}, ${label}, ${description})`)
+    const createSkill = async (name, label, description) => {
+      const rows = await db.run(`INSERT INTO skills (name, label, description) VALUES ("${name}", "${label}", "${description}")`)
       return rows
     }
 
     //Experience
-    const createExperience = async (props) => {
-      const { company_name, from_date, to_date, description } = props
-      const rows = await db.all(`INSERT INTO experience (company_name, from_date, to_date, description) VALUES (${company_name}, ${from_date}, ${to_date}, ${description})`)
+    const createExperience = async (company_name, from_date, to_date, description) => {
+      const rows = await db.all(`INSERT INTO experience (company_name, from_date, to_date, description) VALUES ("${company_name}", "${from_date}", "${to_date}", "${description}")`)
       return rows
     }
 
     //Project
-    const createProject = async (props) => {
-      const { project_name, project_github_link, project_demo_link, project_image, description } = props
-      const rows = await db.all(`INSERT INTO projects (project_name, project_github_link, project_demo_link, project_image, description) VALUES (${project_name}, ${project_github_link}, ${project_demo_link}, ${project_image}, ${description})`)
+    const createProject = async (project_name, project_github_link, project_demo_link, project_image, description) => {
+      const rows = await db.all(`INSERT INTO projects (project_name, project_github_link, project_demo_link, project_image, description) VALUES ("${project_name}", "${project_github_link}", "${project_demo_link}", "${project_image}", "${description}")`)
       return rows
     }
     //About
-    const createAbout = async (props) => {
-      const { description } = props
-      const rows = await db.all(`INSERT INTO about (description) VALUES (${description})`)
+    const createAbout = async (description) => {
+      const rows = await db.all(`INSERT INTO about (description) VALUES ("${description}")`)
       return rows
     }
 
     //Link
-    const createLink = async (props) => {
-      const { facebook_link, youtube_link, twitter_link, email } = props
-      const rows = await db.all(`INSERT INTO contact_links (facebook_link, youtube_link, twitter_link, email) VALUES (${facebook_link}, ${youtube_link}, ${twitter_link}, ${email})`)
+    const createLink = async (facebook_link, youtube_link, twitter_link, email) => {
+      const rows = await db.all(`INSERT INTO contact_links (facebook_link, youtube_link, twitter_link, email) VALUES ("${facebook_link}", "${youtube_link}", "${twitter_link}", "${email}")`)
       return rows
     }
 
@@ -124,32 +119,85 @@ const initializeDatabase = async () => {
     //Delete
     //SKills
     const deleteSkill = async (id) => {
-      const rows = await db.run(`DELETE FROM table_name WHERE id=${id}`)
-      return rows
-    }
-
+      const result = await db.run(`DELETE FROM skills WHERE id=${id}`)
+      if (result.stmt.changes === 0) {
+        return false;
+      }
+      return true;
+    };
     //Experience
     const deleteExperience = async (id) => {
-      const rows = await db.run(`DELETE FROM table_name WHERE id=${id}`)
-      return rows
+      const rows = await db.run(`DELETE FROM experience WHERE id=${id}`)
+      if (rows.stmt.changes === 0) {
+        return false
+      }
+      return true
     }
 
     //Projects
     const deleteProject = async (id) => {
-      const rows = await db.run(`DELETE FROM table_name WHERE id=${id}`)
-      return rows
+      const rows = await db.run(`DELETE FROM projects WHERE id=${id}`)
+      if (rows.stmt.changes === 0) {
+        return false
+      }
+      return true
     }
 
     //About
     const deleteAbout = async (id) => {
-      const rows = await db.run(`DELETE FROM table_name WHERE id=${id}`)
+      const rows = await db.run(`DELETE FROM about WHERE id=${id}`)
       return rows
     }
 
     //Contact Links
     const deleteLink = async (id) => {
-      const rows = await db.run(`DELETE FROM table_name WHERE id=${id}`)
+      const rows = await db.run(`DELETE FROM contact_links WHERE id=${id}`)
+      if (rows.stmt.changes === 0) {
+        return false
+      }
+      return true
+    }
+
+    //Update
+    //SKills
+    const updateSkill = async (id, name, label, description) => {
+      const result = await db.run(`DELETE FROM skills WHERE id=${id}`)
+      if (result.stmt.changes === 0) {
+        return false;
+      }
+      return true;
+    };
+    //Experience
+    const updateExperience = async (id) => {
+      const rows = await db.run(`DELETE FROM experience WHERE id=${id}`)
+      if (rows.stmt.changes === 0) {
+        return false
+      }
+      return true
+    }
+
+    //Projects
+    const updateProject = async (id) => {
+      const rows = await db.run(`DELETE FROM projects WHERE id=${id}`)
+      if (rows.stmt.changes === 0) {
+        return false
+      }
+      return true
+    }
+
+    //About
+    const updateAbout = async (id) => {
+      const rows = await db.run(`DELETE FROM about WHERE id=${id}`)
       return rows
+    }
+
+    //Contact Links
+    const updateLink = async (id) => {
+      const rows = await db.run(`DELETE FROM contact_links WHERE id=${id}`)
+      if (rows.stmt.changes === 0) {
+        return false
+      }
+      return true
     }
 
     const controller = {
@@ -172,7 +220,12 @@ const initializeDatabase = async () => {
       deleteExperience,
       deleteProject,
       deleteAbout,
-      deleteLink
+      deleteLink,
+      updateSkill,
+      updateExperience,
+      updateProject,
+      updateAbout,
+      updateLink
     }
 
     return controller;
