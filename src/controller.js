@@ -235,10 +235,12 @@ const initializeDatabase = async () => {
 
 
   // Creating Table
-  // await db.run(`CREATE TABLE About (id INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT NOT NULL)`);
-  // await db.run(`CREATE TABLE Skills (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, label TEXT NOT NULL, description TEXT NOT NULL)`);
-  // await db.run(`CREATE TABLE Experience (id INTEGER PRIMARY KEY AUTOINCREMENT, company_name TEXT NOT NULL, from_date DATE NOT NULL, to_date DATE NOT NULL, description TEXT NOT NULL)`);
+  // await db.run(`CREATE TABLE home (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT NOT NULL,image TEXT NOT NULL);`);
+  // await db.run(`CREATE TABLE About (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT NOT NULL, description TEXT NOT NULL,image TEXT NOT NULL)`);
+  // await db.run(`CREATE TABLE Skills (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, description TEXT NOT NULL, image TEXT NOT NULL)`);
+  // await db.run(`CREATE TABLE Experience (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL,company_name TEXT NOT NULL, from_date DATE NOT NULL, to_date DATE NOT NULL, description TEXT NOT NULL,icon TEXT NOT NULL )`);
   // await db.run(`CREATE TABLE Projects (id INTEGER PRIMARY KEY AUTOINCREMENT, project_name TEXT NOT NULL, project_github_link TEXT NOT NULL, project_demo_link TEXT NOT NULL, project_image TEXT NOT NULL, description TEXT NOT NULL)`);
+
   // await db.run(`CREATE TABLE Contact_Links (id INTEGER PRIMARY KEY AUTOINCREMENT, facebook_link TEXT NOT NULL, twitter_link TEXT NOT NULL, youtube_link TEXT NOT NULL, email TEXT NOT NULL)`);}
 
   catch (error) {
