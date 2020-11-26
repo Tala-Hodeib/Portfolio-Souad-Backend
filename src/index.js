@@ -16,6 +16,7 @@ const start = async () => {
   app.get('/skills', async (req, res) => {
     try {
       const skillList = await controller.getSkillsList()
+      console.log (skillList)
       res.send(
         {
           success: true,
@@ -162,7 +163,8 @@ const start = async () => {
   //Skill
   app.post('/skills/insert', async (req, res) => {
     try {
-      const { name, label, description } = req.query
+      const { name, label, description } = req.body;
+     console.log (name,label,description);
       const skill = await controller.createSkill(name, label, description)
       res.send(
         {

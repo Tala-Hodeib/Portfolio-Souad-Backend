@@ -13,7 +13,9 @@ const initializeDatabase = async () => {
     //Skills
     const getSkillsList = async () => {
       const rows = await db.all("SELECT id, name, label, description FROM skills")
+      console.log (rows);
       return rows
+    
     }
 
     //Experience
