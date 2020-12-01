@@ -13,34 +13,34 @@ const initializeDatabase = async () => {
     //Skills
     const getSkillsList = async () => {
       const rows = await db.all("SELECT id, name, label, description FROM skills")
-      console.log (rows);
       return rows
     
     }
-
-    //Experience
-    const getExperienceList = async () => {
-      const rows = await db.all("SELECT id, company_name, from_date, to_date, description FROM experience")
-      return rows
-    }
-
-    //Projects
-    const getProjetctsList = async () => {
-      const rows = await db.all("SELECT id, project_name, project_github_link, project_demo_link, project_image, description FROM projects")
-      return rows
-    }
-
-    //About
-    const getAboutDesc = async () => {
-      const rows = await db.all("SELECT * FROM about")
-      return rows
-    }
-
-    //Contact Links
+      // //Contact Links
     const getContactLinks = async () => {
       const rows = await db.all("SELECT id, facebook_link, youtube_link, twitter_link, email FROM contact_links")
       return rows
     }
+
+    // //Experience
+    // const getExperienceList = async () => {
+    //   const rows = await db.all("SELECT id, company_name, from_date, to_date, description FROM experience")
+    //   return rows
+    // }
+
+    // //Projects
+    // const getProjetctsList = async () => {
+    //   const rows = await db.all("SELECT id, project_name, project_github_link, project_demo_link, project_image, description FROM projects")
+    //   return rows
+    // }
+
+    // //About
+    // const getAboutDesc = async () => {
+    //   const rows = await db.all("SELECT * FROM about")
+    //   return rows
+    // }
+
+  
 
 
     /*------------------------------------------------------------------*/
@@ -48,35 +48,35 @@ const initializeDatabase = async () => {
 
 
     //Query by ID
-    //SKills
-    const getSkillsByID = async (id) => {
-      const rows = await db.all(`SELECT id, name, label, description FROM skills WHERE id=${id}`)
-      return rows
-    }
+    // //SKills
+    // const getSkillsByID = async (id) => {
+    //   const rows = await db.all(`SELECT id, name, label, description FROM skills WHERE id=${id}`)
+    //   return rows
+    // }
 
-    //Experience
-    const getExperienceByID = async (id) => {
-      const rows = await db.all(`SELECT id, company_name, from_date, to_date, description FROM experience WHERE id=${id}`)
-      return rows
-    }
+    // //Experience
+    // const getExperienceByID = async (id) => {
+    //   const rows = await db.all(`SELECT id, company_name, from_date, to_date, description FROM experience WHERE id=${id}`)
+    //   return rows
+    // }
 
-    //Projects
-    const getProjectByID = async (id) => {
-      const rows = await db.all(`SELECT id, project_name, project_github_link, project_demo_link, project_image, description FROM projects WHERE id=${id}`)
-      return rows
-    }
+    // //Projects
+    // const getProjectByID = async (id) => {
+    //   const rows = await db.all(`SELECT id, project_name, project_github_link, project_demo_link, project_image, description FROM projects WHERE id=${id}`)
+    //   return rows
+    // }
 
-    //About
-    const getAboutByID = async (id) => {
-      const rows = await db.all(`SELECT id, description FROM about WHERE id=${id}`)
-      return rows
-    }
+    // //About
+    // const getAboutByID = async (id) => {
+    //   const rows = await db.all(`SELECT id, description FROM about WHERE id=${id}`)
+    //   return rows
+    // }
 
-    //Contact Links
-    const getLinkByID = async (id) => {
-      const rows = await db.all(`SELECT id, facebook_link, youtube_link, twitter_link, email FROM contact_links WHERE id=${id}`)
-      return rows
-    }
+    // //Contact Links
+    // const getLinkByID = async (id) => {
+    //   const rows = await db.all(`SELECT id, facebook_link, youtube_link, twitter_link, email FROM contact_links WHERE id=${id}`)
+    //   return rows
+    // }
 
 
     /*------------------------------------------------------------------*/
@@ -90,28 +90,29 @@ const initializeDatabase = async () => {
       return rows
     }
 
-    //Experience
-    const createExperience = async (company_name, from_date, to_date, description) => {
-      const rows = await db.all(`INSERT INTO experience (company_name, from_date, to_date, description) VALUES ("${company_name}", "${from_date}", "${to_date}", "${description}")`)
-      return rows
-    }
-
-    //Project
-    const createProject = async (project_name, project_github_link, project_demo_link, project_image, description) => {
-      const rows = await db.all(`INSERT INTO projects (project_name, project_github_link, project_demo_link, project_image, description) VALUES ("${project_name}", "${project_github_link}", "${project_demo_link}", "${project_image}", "${description}")`)
-      return rows
-    }
-    //About
-    const createAbout = async (description) => {
-      const rows = await db.all(`INSERT INTO about (description) VALUES ("${description}")`)
-      return rows
-    }
-
-    //Link
+    // //Link
     const createLink = async (facebook_link, youtube_link, twitter_link, email) => {
-      const rows = await db.all(`INSERT INTO contact_links (facebook_link, youtube_link, twitter_link, email) VALUES ("${facebook_link}", "${youtube_link}", "${twitter_link}", "${email}")`)
+      const rows = await db.run(`INSERT INTO contact_links (facebook_link, youtube_link, twitter_link, email) VALUES ("${facebook_link}", "${youtube_link}", "${twitter_link}", "${email}")`)
       return rows
     }
+
+    // //Experience
+    // const createExperience = async (company_name, from_date, to_date, description) => {
+    //   const rows = await db.all(`INSERT INTO experience (company_name, from_date, to_date, description) VALUES ("${company_name}", "${from_date}", "${to_date}", "${description}")`)
+    //   return rows
+    // }
+
+    // //Project
+    // const createProject = async (project_name, project_github_link, project_demo_link, project_image, description) => {
+    //   const rows = await db.all(`INSERT INTO projects (project_name, project_github_link, project_demo_link, project_image, description) VALUES ("${project_name}", "${project_github_link}", "${project_demo_link}", "${project_image}", "${description}")`)
+    //   return rows
+    // }
+    // //About
+    // const createAbout = async (description) => {
+    //   const rows = await db.all(`INSERT INTO about (description) VALUES ("${description}")`)
+    //   return rows
+    // }
+
 
 
     /*------------------------------------------------------------------*/
@@ -127,106 +128,108 @@ const initializeDatabase = async () => {
       }
       return true;
     };
-    //Experience
-    const deleteExperience = async (id) => {
-      const rows = await db.run(`DELETE FROM experience WHERE id=${id}`)
-      if (rows.stmt.changes === 0) {
-        return false
-      }
-      return true
-    }
-
-    //Projects
-    const deleteProject = async (id) => {
-      const rows = await db.run(`DELETE FROM projects WHERE id=${id}`)
-      if (rows.stmt.changes === 0) {
-        return false
-      }
-      return true
-    }
-
-    //About
-    const deleteAbout = async (id) => {
-      const rows = await db.run(`DELETE FROM about WHERE id=${id}`)
-      return rows
-    }
-
-    //Contact Links
+      //Contact Links
     const deleteLink = async (id) => {
-      const rows = await db.run(`DELETE FROM contact_links WHERE id=${id}`)
-      if (rows.stmt.changes === 0) {
-        return false
-      }
-      return true
-    }
-
-    //Update
-    //SKills
-    const updateSkill = async (id, name, label, description) => {
-      const result = await db.run(`DELETE FROM skills WHERE id=${id}`)
+      const result = await db.run(`DELETE FROM contact_links WHERE id=${id}`)
       if (result.stmt.changes === 0) {
-        return false;
+        return false
       }
-      return true;
+      return true
     };
-    //Experience
-    const updateExperience = async (id) => {
-      const rows = await db.run(`DELETE FROM experience WHERE id=${id}`)
-      if (rows.stmt.changes === 0) {
-        return false
-      }
-      return true
-    }
+    // //Experience
+    // const deleteExperience = async (id) => {
+    //   const rows = await db.run(`DELETE FROM experience WHERE id=${id}`)
+    //   if (rows.stmt.changes === 0) {
+    //     return false
+    //   }
+    //   return true
+    // }
 
-    //Projects
-    const updateProject = async (id) => {
-      const rows = await db.run(`DELETE FROM projects WHERE id=${id}`)
-      if (rows.stmt.changes === 0) {
-        return false
-      }
-      return true
-    }
+    // //Projects
+    // const deleteProject = async (id) => {
+    //   const rows = await db.run(`DELETE FROM projects WHERE id=${id}`)
+    //   if (rows.stmt.changes === 0) {
+    //     return false
+    //   }
+    //   return true
+    // }
 
-    //About
-    const updateAbout = async (id) => {
-      const rows = await db.run(`DELETE FROM about WHERE id=${id}`)
+    // //About
+    // const deleteAbout = async (id) => {
+    //   const rows = await db.run(`DELETE FROM about WHERE id=${id}`)
+    //   return rows
+    // }
+
+  
+
+    // Update
+    // SKills
+    const updateSkills = async (id, name, label, description) => {
+      console.log (id,name,label,description)
+      const rows = await db.run(`UPDATE skills
+      SET name = '${name}', label = '${label}', description = '${description}'
+      WHERE id=${id}`)
+      console.log (rows)
       return rows
     }
-
-    //Contact Links
-    const updateLink = async (id) => {
-      const rows = await db.run(`DELETE FROM contact_links WHERE id=${id}`)
-      if (rows.stmt.changes === 0) {
-        return false
-      }
-      return true
+      //Contact Links
+      const updateLink = async (id, facebook_link, youtube_link, twitter_link,email) => {
+        const rows = await db.run(`UPDATE contact_links
+        SET facebook_link = '${facebook_link}', youtube_link = '${youtube_link}', twitter_link = '${twitter_link}', email='${email}'
+        WHERE id=${id}`)
+        return rows
     }
+    // //Experience
+    // const updateExperience = async (id) => {
+    //   const rows = await db.run(`DELETE FROM experience WHERE id=${id}`)
+    //   if (rows.stmt.changes === 0) {
+    //     return false
+    //   }
+    //   return true
+    // }
+
+    // //Projects
+    // const updateProject = async (id) => {
+    //   const rows = await db.run(`DELETE FROM projects WHERE id=${id}`)
+    //   if (rows.stmt.changes === 0) {
+    //     return false
+    //   }
+    //   return true
+    // }
+
+    // //About
+    // const updateAbout = async (id) => {
+    //   const rows = await db.run(`DELETE FROM about WHERE id=${id}`)
+    //   return rows
+    // }
+
+  
 
     const controller = {
       getSkillsList,
-      getExperienceList,
-      getProjetctsList,
-      getAboutDesc,
+      // getExperienceList,
+      // getProjetctsList,
+      // getAboutDesc,
       getContactLinks,
-      getSkillsByID,
-      getExperienceByID,
-      getProjectByID,
-      getAboutByID,
-      getLinkByID,
+      // getSkillsByID,
+      // getExperienceByID,
+      // getProjectByID,
+      // getAboutByID,
+      // getLinkByID,
       createSkill,
-      createExperience,
-      createProject,
-      createAbout,
+      // createExperience,
+      // createProject,
+      // createAbout,
       createLink,
       deleteSkill,
-      deleteExperience,
-      deleteProject,
-      deleteAbout,
+      // deleteExperience,
+      // deleteProject,
+      // deleteAbout,
       deleteLink,
-      updateSkill,
-      updateExperience,
-      updateProject,
-      updateAbout,
+      updateSkills,
+      // updateExperience,
+      // updateProject,
+      // updateAbout,
       updateLink
     }
 
